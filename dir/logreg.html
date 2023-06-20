@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header_head">
+            <h1 class="Nazvanie">Название</h1>
+                <a href="logreg.html">войти/<br>зарегистрироваться</a>
+        </div>
+        <div class="link_block">
+            <a href="/">Главная</a>
+            <a href="/">База</a>
+            <a href="/">О сайте</a>
+        </div>
+    </header>
+    <main>
+        <div class="feed">
+                <div class="obj_block log_reg_block">
+                    <h2 class="enter_label">Вход</h2>
+                    <div class="login_block">
+                        <label for="">Логин:</label>
+                        <input class="login" type="text">
+                    </div>
+                    <div class="pass_block">
+                        <label for="">Пароль:</label>
+                        <input class="pass" type="password">
+                    </div>
+                    <button class="enter">Вход</button>
+                    <a href="" class="link2">Регистрация</a>
+            </div>
+        </div>
+    </main>
+</body>
+<script>
+    var isENTER = false
+
+    const regLink = document.querySelector('.link2')
+    const enterLabel = document.querySelector('.enter_label')
+    const enterButt = document.querySelector('.enter')
+
+    regLink.addEventListener('click', function(e){
+        e.preventDefault()
+        if(isENTER){
+        enterLabel.textContent = 'Вход'
+        enterButt.textContent = 'Вход'
+        regLink.textContent = 'Регистрация'
+        }else{
+        enterLabel.textContent = 'Регистрация'
+        enterButt.textContent = 'Регистрация'
+        regLink.textContent = 'Уже есть аккаунт? Войти'
+        }
+
+        isENTER = !isENTER
+    })
+
+    enterButt.addEventListener('click', async function(e){
+        let inputLogin = document.querySelector('.login').value;
+        let inputPass = document.querySelector('.pass').value;
+        var isUser
+
+        if(inputLogin == "" && inputPass == ""){
+        return false;
+        }
+        else{
+            let user = {
+                name:inputLogin,
+                surname:inputPass
+            }
+            if(isENTER){
+                let response = await fetch('/api/user/',{
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify(user)
+            })
+
+            }else{
+                let response = await fetch('/api/find/user/',{
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify(user)  
+            })
+            .then(response =>response.json())
+            .then(data=>{isUser = data})
+            if(isUser[0]){
+                sessionStorage.setItem('username', isUser[0].name);
+                console.log(sessionStorage.getItem('username'));
+                window.open('index.html')
+            }
+            else{
+                alert('неверный логин или пароль!')
+            }
+            }
+            
+        }
+        })
+</script>
+</html>

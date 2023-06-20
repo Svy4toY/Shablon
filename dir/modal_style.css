@@ -1,0 +1,78 @@
+.modal_add{
+    visibility: hidden;    
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    z-index: 99;
+
+    padding:30px 0;
+
+    backdrop-filter: blur(5px) brightness(60%);
+}
+
+.content{
+    background-color: aliceblue;
+    height: 60%;
+    min-width: 20%;
+    aspect-ratio: 1;
+    padding: 2%;
+    border-radius: 15px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.text_block, .name_block{
+    display: flex;
+    margin: 2%;
+    justify-content: space-between;
+}
+
+.add_picture{
+    height: 60%;
+    background-color: beige;
+    background-image: url('R.png');
+    background-size: 90%;
+    background-position: center;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    border: groove;
+    transition: 0.5;
+}
+
+.add_picture:hover{
+    background-size: 110%;
+    background-position: center;
+}
+
+.modal_exit{
+    width: fit-content;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+/* .add_input_name, .add_input_text{
+    border-radius: 20px;
+    height: 1rem;
+    margin: 2%;
+} */
+
+.add_text, .add_name{
+    width: 6rem;
+    margin: 2%;
+}
+
+.name_block, .text_block{
+    align-items: center;
+}
